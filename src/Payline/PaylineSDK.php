@@ -2232,6 +2232,11 @@ class PaylineSDK
         $message .= str_repeat(chr($pad), $pad);
         $encrypted = openssl_encrypt($message, $cipher, $accessKey, $opts);
 
+        if (false === $encrypted) {
+            echo openssl_error_string();
+            die;
+        }
+
         return $this->base64_url_encode($encrypted);
     }
 
